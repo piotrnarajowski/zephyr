@@ -19,6 +19,7 @@
 #include <zephyr/bluetooth/conn.h>
 #include <zephyr/bluetooth/gatt.h>
 #include <zephyr/bluetooth/audio/micp.h>
+#include <../../subsys/bluetooth/audio/aics_internal.h>
 
 #include <zephyr/logging/log.h>
 
@@ -512,6 +513,47 @@ int bt_micp_mic_ctlr_conn_get(const struct bt_micp_mic_ctlr *mic_ctlr, struct bt
 	}
 
 	*conn = mic_ctlr->conn;
+	return 0;
+}
+
+int bt_micp_mic_ctlr_chrc_get(const struct bt_micp_mic_ctlr *mic_ctlr, uint16_t *mute_handle)
+{
+	CHECKIF(mic_ctlr == NULL)
+	{
+		LOG_DBG("NULL mic_ctlr pointer");
+		return -EINVAL;
+	}
+
+	if (mic_ctlr->conn == NULL) {
+		LOG_DBG("mic_ctlr pointer not associated with a connection. "
+			"Do discovery first");
+		return -ENOTCONN;
+	}
+
+	*mute_handle = mic_ctlr->mute_handle;
+
+	return 0;
+}
+
+int bt_micp_mic_ctlr_aics_chrc_get(const struct bt_micp_included micp_included,
+				   uint16_t *state_handle, uint16_t *gain_handle,
+				   uint16_t *type_handle,
+				   uint16_t *status_handle, uint16_t *control_handle,
+				   uint16_t *desc_handle)
+{
+	CHECKIF(micp_included.aics == NULL)
+	{
+		LOG_DBG("NULL AICS instance");
+		return -EINVAL;
+	}
+
+	*state_handle = micp_included.aics[0]->cli.state_handle;
+	*gain_handle = micp_included.aics[0]->cli.gain_handle;
+	*type_handle = micp_included.aics[0]->cli.type_handle;
+	*status_handle = micp_included.aics[0]->cli.status_handle;
+	*control_handle = micp_included.aics[0]->cli.control_handle;
+	*desc_handle = micp_included.aics[0]->cli.desc_handle;
+
 	return 0;
 }
 
