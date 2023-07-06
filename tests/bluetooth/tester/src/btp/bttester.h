@@ -89,3 +89,6 @@ uint8_t tester_unregister_bap(void);
 
 uint8_t tester_init_has(void);
 uint8_t tester_unregister_has(void);
+
+uint8_t tester_init_micp(void);
+uint8_t tester_unregister_micp(void);

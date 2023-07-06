@@ -39,3 +39,11 @@ endif()
 if(CONFIG_BT_HAS)
     target_sources(app PRIVATE src/btp_has.c)
 endif()
+
+if(CONFIG_BT_MICP_MIC_DEV)
+    target_sources(app PRIVATE src/btp_micp.c)
+endif()
+
+if(CONFIG_BT_AICS)
+    target_sources(app PRIVATE src/btp_aics.c)
+endif()

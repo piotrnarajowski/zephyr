@@ -20,6 +20,7 @@
  */
 
 #include <stdint.h>
+#include <../../subsys/bluetooth/audio/micp_internal.h>
 
 #include <zephyr/bluetooth/audio/aics.h>
 
@@ -271,36 +272,6 @@ int bt_micp_mic_ctlr_mute_get(struct bt_micp_mic_ctlr *mic_ctlr);
  * @return 0 if success, errno on failure.
  */
 int bt_micp_mic_ctlr_cb_register(struct bt_micp_mic_ctlr_cb *cb);
-
-/**
- * @brief Get the start handle and end handle a Microphone Controller instance
- *
- * @param mic_ctlr    Microphone Controller instance pointer.
- * @param mute_handle        Mute characteristic handle.
- *
- * @return 0 if success, errno on failure.
- */
-int bt_micp_mic_ctlr_chrc_get(const struct bt_micp_mic_ctlr *mic_ctlr, uint16_t *mute_handle);
-
-/**
- * @brief Get handles of each characteristic of AICS.
- *
- * @param micp_included    Included Services containing array of pointers to AICS instances.
- * @param state_handle        state handle.
- * @param gain_handle        gain handle.
- * @param type_handle        type handle.
- * @param status_handle        status handle.
- * @param control_handle        control handle.
- * @param desc_handle        desc handle.
- *
- * @return 0 if success, errno on failure.
- */
-int bt_micp_mic_ctlr_aics_chrc_get(const struct bt_micp_included micp_included,
-				   uint16_t *state_handle, uint16_t *gain_handle,
-				   uint16_t *type_handle,
-				   uint16_t *status_handle, uint16_t *control_handle,
-				   uint16_t *desc_handle);
-
 #ifdef __cplusplus
 }
 #endif

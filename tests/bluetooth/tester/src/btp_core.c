@@ -77,6 +77,9 @@ static uint8_t supported_services(const void *cmd, uint16_t cmd_len,
 #if defined(CONFIG_BT_HAS) || defined(CONFIG_BT_HAS_CLIENT)
 	tester_set_bit(rp->data, BTP_SERVICE_ID_HAS);
 #endif /* CONFIG_BT_HAS */
+#if defined(CONFIG_BT_MICP_MIC_DEV) || defined(CONFIG_BT_MICP_MIC_CTLR)
+	tester_set_bit(rp->data, BTP_SERVICE_ID_MICP);
+#endif /* CONFIG_BT_MICP_MIC_DEV */
 
 	*rsp_len = sizeof(*rp) + 2;
 
@@ -141,6 +144,9 @@ static uint8_t register_service(const void *cmd, uint16_t cmd_len,
 		break;
 	case BTP_SERVICE_ID_BAP:
 		status = tester_init_bap();
+		break;
+		case BTP_SERVICE_ID_MICP:
+		status = tester_init_micp();
 		break;
 #endif /* CONFIG_BT_BAP_UNICAST_CLIENT or CONFIG_BT_BAP_UNICAST_SERVER */
 #if defined(CONFIG_BT_HAS)
@@ -219,6 +225,9 @@ static uint8_t unregister_service(const void *cmd, uint16_t cmd_len,
 		break;
 	case BTP_SERVICE_ID_BAP:
 		status = tester_unregister_bap();
+		break;
+		case BTP_SERVICE_ID_MICP:
+		status = tester_unregister_micp();
 		break;
 #endif /* CONFIG_BT_BAP_UNICAST_CLIENT or CONFIG_BT_BAP_UNICAST_SERVER */
 #if defined(CONFIG_BT_HAS)
