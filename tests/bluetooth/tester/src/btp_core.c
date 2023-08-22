@@ -148,8 +148,11 @@ static uint8_t register_service(const void *cmd, uint16_t cmd_len,
 	case BTP_SERVICE_ID_BAP:
 		status = tester_init_bap();
 		break;
-		case BTP_SERVICE_ID_MICP:
+	case BTP_SERVICE_ID_MICP:
 		status = tester_init_micp();
+		break;
+	case BTP_SERVICE_ID_MICS:
+		status = tester_init_mics();
 		break;
 #endif /* CONFIG_BT_BAP_UNICAST_CLIENT or CONFIG_BT_BAP_UNICAST_SERVER */
 #if defined(CONFIG_BT_HAS)
